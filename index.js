@@ -16,7 +16,11 @@ app.use(
 app.all("/api", (req, res) => {
     try {
         const signature = req.get("X-Razorpay-Signature");
-        const body = req.rawBody.toString();
+
+        if (req?.rawBody) {
+            const body = req?.rawBody?.toString();
+            console.log("BODY IS", body);
+        };
 
         // 2️⃣ Parse payload
         const data = req.body;
@@ -24,8 +28,6 @@ app.all("/api", (req, res) => {
         console.log(`📬 Received RazorpayX event: ${event}`);
 
         console.log("DATA IS", data);
-        console.log("BODY IS", body);
-
         res.status(200).send("Webhook received");
     } catch (err) {
         res.status(500).send(err);
