@@ -14,18 +14,22 @@ app.use(
 );
 
 app.all("/api", (req, res) => {
-    const signature = req.get("X-Razorpay-Signature");
-    const body = req.rawBody.toString();
+    try {
+        const signature = req.get("X-Razorpay-Signature");
+        const body = req.rawBody.toString();
 
-    // 2️⃣ Parse payload
-    const data = req.body;
-    const event = data.event;
-    console.log(`📬 Received RazorpayX event: ${event}`);
+        // 2️⃣ Parse payload
+        const data = req.body;
+        const event = data.event;
+        console.log(`📬 Received RazorpayX event: ${event}`);
 
-    console.log("DATA IS", data);
-    console.log("BODY IS", body);
+        console.log("DATA IS", data);
+        console.log("BODY IS", body);
 
-    res.status(200).send("Webhook received");
+        res.status(200).send("Webhook received");
+    } catch (err) {
+        res.status(500).send(err);
+    };
 });
 
 const PORT = process.env.PORT || 8000;
