@@ -24,7 +24,6 @@ app.all("/api", (req, res) => {
 
         // 2️⃣ Parse payload
         const data = req.body;
-        const event = data.event;
         console.log(`📬 Received RazorpayX event: ${event}`);
 
         console.log("DATA IS", data);
