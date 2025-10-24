@@ -30,6 +30,7 @@ app.all("/api", (req, res) => {
         console.log("DATA IS", data);
         res.status(200).send("Webhook received");
     } catch (err) {
+        console.log("ERROR IS", err);
         res.status(500).send(err);
     };
 });
